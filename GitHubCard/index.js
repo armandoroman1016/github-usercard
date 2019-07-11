@@ -1,18 +1,81 @@
 /* Step 1: using axios, send a GET request to the following URL 
-           (replacing the palceholder with your Github name):
-           https://api.github.com/users/<your name>
+            (replacing the placeholder with your Github name):
+            https://api.github.com/users/<your name>
 */
 
-/* Step 2: Inspect and study the data coming back, this is YOUR 
-   github info! You will need to understand the structure of this 
-   data in order to use it to build your component function 
+//main node to attach dynamic content
+const cards = document.querySelector('.cards')
 
-   Skip to Step 3.
+
+axios.get('https://api.github.com/users/armandoroman1016')
+.then(data => {
+  console.log('Github User Data: ', data)
+  const userInfo = {
+  location : data.data.location,
+  profile : data.data.html_url,
+  followers : data.data.followers,
+  following : data.data.following,
+  bio : data.data.bio,
+  avatar : data.data.avatar_url,
+  handle : data.data.login,
+  name : data.data.name
+  }
+  const element = createGithubCard(userInfo)
+
+  cards.appendChild(element)
+})
+.catch(error =>{
+  console.log('There is an error: ', error)
+})
+/* Step 2: Inspect and study the data coming back, this is YOUR 
+    github info! You will need to understand the structure of this 
+    data in order to use it to build your component function 
+
+    Skip to Step 3.
 */
 
 /* Step 4: Pass the data received from Github into your function, 
-           create a new component and add it to the DOM as a child of .cards
+          create a new component and add it to the DOM as a child of .cards
 */
+function createGithubCard(obj){
+  //create elements
+  const card = document.createElement('div')
+  const img = document.createElement('img')
+  const profileLink = document.createElement('p')
+  const followers = document.createElement('p')
+  const following = document.createElement('p')
+  const bio = document.createElement('p')
+  const location = document.createElement('p')
+  const handle = document.createElement('h3')
+  const name = document.createElement('h2')
+  
+  //set styling by adding classes to elements
+  card.classList.add('card')
+  handle.classList.add('username', 'names')
+  name.classList.add('name', 'names')
+
+  //set the content
+  img.src = obj.avatar
+  profileLink.textContent = obj.profile
+  followers.textContent = obj.followers
+  following.textContent = obj.following
+  bio.textContent = obj.bio
+  location.textContent = obj.location
+  handle.textContent = obj.handle
+  name.textContent = obj.name
+  
+  //put together
+  const cardElements = [img, name, handle, location, profileLink, followers, following, bio]
+
+  cardElements.forEach(element => card.appendChild(element))
+  // card.appendChild(img)
+  // card.appendChild(name)
+  // name.appendChild(handle)
+
+
+
+  return card
+}
 
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
@@ -35,7 +98,7 @@ const followersArray = [];
     <h3 class="name">{users name}</h3>
     <p class="username">{users user name}</p>
     <p>Location: {users location}</p>
-    <p>Profile:  
+    <p>Profile:
       <a href={address to users github page}>{address to users github page}</a>
     </p>
     <p>Followers: {users followers count}</p>
@@ -46,7 +109,7 @@ const followersArray = [];
 
 */
 
-/* List of LS Instructors Github username's: 
+/* List of LS Instructors Github username's:
   tetondan
   dustinmyers
   justsml
