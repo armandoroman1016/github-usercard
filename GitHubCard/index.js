@@ -51,8 +51,8 @@ function createGithubCard(obj){
   
   //set styling by adding classes to elements
   card.classList.add('card')
-  handle.classList.add('username', 'names')
-  name.classList.add('name', 'names')
+  handle.classList.add('username')
+  name.classList.add('name')
 
   //set the content
   img.src = obj.avatar
@@ -84,8 +84,29 @@ function createGithubCard(obj){
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['Bastlifa', 'AndrewA0112', 'pdadlani', 'tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
+followersArray.forEach(follower => {
+  axios.get(`https://api.github.com/users/${follower}`)
+.then(data => {
+  const userInfo = {
+  location : data.data.location,
+  profile : data.data.html_url,
+  followers : data.data.followers,
+  following : data.data.following,
+  bio : data.data.bio,
+  avatar : data.data.avatar_url,
+  handle : data.data.login,
+  name : data.data.name
+  }
+  const element = createGithubCard(userInfo)
+
+  cards.appendChild(element)
+})
+.catch(error =>{
+  console.log('There is an error: ', error)
+})
+})
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
