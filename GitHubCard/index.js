@@ -56,23 +56,20 @@ function createGithubCard(obj){
 
   //set the content
   img.src = obj.avatar
-  profileLink.textContent = obj.profile
-  followers.textContent = obj.followers
-  following.textContent = obj.following
-  bio.textContent = obj.bio
-  location.textContent = obj.location
+  profileLink.textContent = `Profile: ${obj.profile}`
+  followers.textContent = `Followers: ${obj.followers}`
+  following.textContent = `Following: ${obj.following}`
+  bio.textContent = `Bio: ${obj.bio}`
+  location.textContent = `Location: ${obj.location}`
   handle.textContent = obj.handle
   name.textContent = obj.name
   
   //put together
-  const cardElements = [img, name, handle, location, profileLink, followers, following, bio]
+  const userInfoElements = [handle, location, profileLink, followers, following, bio]
 
-  cardElements.forEach(element => card.appendChild(element))
-  // card.appendChild(img)
-  // card.appendChild(name)
-  // name.appendChild(handle)
-
-
+  card.appendChild(img)
+  card.appendChild(name)
+  userInfoElements.forEach(element => name.appendChild(element))
 
   return card
 }
