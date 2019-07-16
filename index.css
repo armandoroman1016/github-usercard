@@ -114,7 +114,7 @@ body {
 
 .card p {
   font-size: 1.4rem;
-  margin-bottom: 3px;
+  margin-bottom: 4.5px;
 }
 
 .card .username {
@@ -122,6 +122,4 @@ body {
   font-style: italic;
   margin: 3px 0 10px;
 }
-
-
 
